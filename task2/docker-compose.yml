@@ -1,0 +1,13 @@
+services:
+  web-app:
+    build:
+      context: DostavimVse
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  db:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+  
