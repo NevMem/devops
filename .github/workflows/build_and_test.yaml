@@ -1,0 +1,60 @@
+name: Build and test
+
+on:
+  push:
+    branches: [ main, task-ci ]
+  pull_request:
+    branches: [ main, task-ci ]
+
+env:
+  BUILD_TYPE: Test
+  GOOGLE_TEST_DIR: googletest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: check
+      run: |
+        echo ${{github.workspace}}
+        ls -la
+
+    - name: download gtest
+      run: |
+        mkdir tmp
+        cd tmp
+        git clone https://github.com/google/googletest.git
+        cd ../
+        mkdir task-ci/3rdparty
+        cp -r tmp/googletest task-ci/3rdparty/
+        rm -rf tmp
+        ls -la task-ci/3rdparty/
+
+    - name: Configure CMake
+      run: cd task-ci && cmake -B ${{github.workspace}}/task-ci/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      run: cd task-ci && cmake --build ${{github.workspace}}/task-ci/build --config ${{env.BUILD_TYPE}}
+
+    - name: Test
+      uses: akhtyamovpavel/ActionGtestReport@v0.0.9
+      with:
+        exec-path: ./CTestExe
+        report-path: report.xml
+        working-directory: ./task-ci/bin/
+
+    - name: UploadArtifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Distributive
+        path: |
+          ./task-ci/bin/
+          ./task-ci/lib/
+
+    - name: Check
+      run: |
+        ls -la
+        ls -la ./task-ci
