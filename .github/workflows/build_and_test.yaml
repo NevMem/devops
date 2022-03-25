@@ -46,8 +46,6 @@ jobs:
       uses: akhtyamovpavel/ActionGtestReport@v0.0.9
       with:
         exec-path: ./task-ci/bin/CTestExe
-        report-path: ./output
-        working-directory: .
 
     - name: Check
       run: |
