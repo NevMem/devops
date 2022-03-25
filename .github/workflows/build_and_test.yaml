@@ -45,9 +45,11 @@ jobs:
     - name: Running testing export
       uses: akhtyamovpavel/ActionGtestReport@v0.0.9
       with:
-        exec-path: ./task-ci/bin/CTestExe
+        exec-path: ./CTestExe
+        working-directory: ./task-ci/bin/
 
     - name: Check
       run: |
         ls -la
-        ls -la ./output
+        ls -la task-ci
+        ls -la task-ci/bin/
