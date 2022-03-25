@@ -49,8 +49,14 @@ jobs:
         report-path: test-report
         working-directory: ./task-ci/bin/
 
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Distributive
+        path: |
+          ./task-ci/bin/
+          ./task-ci/lib/
+
     - name: Check
       run: |
         ls -la
-        ls -la task-ci
-        ls -la task-ci/bin/
+        ls -la ./task-ci
