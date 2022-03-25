@@ -21,6 +21,17 @@ jobs:
         echo ${{github.workspace}}
         ls -la
 
+    - name: download gtest
+      run: |
+        mkdir tmp
+        cd tmp
+        git clone https://github.com/google/googletest.git
+        cd ../
+        mkdir task-ci/3rdparty
+        cp -r tmp/googletest/googletest task-ci/3rdparty/
+        rm -rf tmp
+        ls -la task-ci/3rdparty/
+
     - name: Configure CMake
       run: cd task-ci && cmake -B ${{github.workspace}}/task-ci/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
