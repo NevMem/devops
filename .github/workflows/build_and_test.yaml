@@ -39,14 +39,15 @@ jobs:
     - name: Build
       run: cd task-ci && cmake --build ${{github.workspace}}/task-ci/build --config ${{env.BUILD_TYPE}}
 
-    - name: Running testing export
+    - name: Test
       uses: akhtyamovpavel/ActionGtestReport@v0.0.9
       with:
         exec-path: ./CTestExe
         report-path: test-report
         working-directory: ./task-ci/bin/
 
-    - uses: actions/upload-artifact@v3
+    - name: UploadArtifacts
+      uses: actions/upload-artifact@v3
       with:
         name: Distributive
         path: |
