@@ -16,12 +16,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: check
+      run: |
+        echo ${{github.workspace}}
+        ls -la
+
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/task-ci/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/task-ci/build --config ${{env.BUILD_TYPE}}
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}/task-ci/build
       run: ctest -C ${{env.BUILD_TYPE}}
