@@ -8,6 +8,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  GOOGLE_TEST_DIR: googletest
 
 jobs:
   build:
@@ -31,6 +32,7 @@ jobs:
         cp -r tmp/googletest/googletest task-ci/3rdparty/
         rm -rf tmp
         ls -la task-ci/3rdparty/
+        ls -la task-ci/3rdparty/googletest
 
     - name: Configure CMake
       run: cd task-ci && cmake -B ${{github.workspace}}/task-ci/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
