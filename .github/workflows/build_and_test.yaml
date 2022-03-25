@@ -9,7 +9,6 @@ on:
 env:
   BUILD_TYPE: Release
   GOOGLE_TEST_DIR: googletest
-  GOOGLETEST_VERSION: 1.0
 
 jobs:
   build:
@@ -30,10 +29,9 @@ jobs:
         git clone https://github.com/google/googletest.git
         cd ../
         mkdir task-ci/3rdparty
-        cp -r tmp/googletest/googletest task-ci/3rdparty/
+        cp -r tmp/googletest task-ci/3rdparty/
         rm -rf tmp
         ls -la task-ci/3rdparty/
-        ls -la task-ci/3rdparty/googletest
 
     - name: Configure CMake
       run: cd task-ci && cmake -B ${{github.workspace}}/task-ci/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
