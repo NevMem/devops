@@ -9,6 +9,7 @@ on:
 env:
   BUILD_TYPE: Release
   GOOGLE_TEST_DIR: googletest
+  GOOGLETEST_VERSION: 1.0
 
 jobs:
   build:
